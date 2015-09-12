@@ -1,6 +1,6 @@
-Setlocal EnableDelayedExpansion
 @echo off
 rem -*- coding:OEM -*-
+Setlocal EnableDelayedExpansion
 
 SET "PARAM1=%1"
 SET "PARAM2=%2"
@@ -16,7 +16,7 @@ SET "NEW_STR=%NEW_STR:^lt;=^<%"
 SET "NEW_STR=%NEW_STR:^qt;=^>%"
 
 rem echo param1=%PARAM1%; param2=%PARAM2%; param3=%PARAM3%
-rem echo param1=%SRC%; param2=%FIND_STR%; param3=%NEW_STR%
+echo param1=%SRC%; param2=%FIND_STR%; param3=%NEW_STR%
 
 for /f "usebackq tokens=*" %%a in ("%SRC%") do (
     if "%%a"=="" (

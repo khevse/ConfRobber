@@ -1,5 +1,5 @@
 # ConfRobber
-#Предназначен для работы с конфигурационными файлами 1С.
+# RU: Изменение файла конфигурации 1С.
 
 Перед началом сборки необходимо:
 
@@ -11,12 +11,26 @@
 - mingw64: http://sourceforge.net/projects/mingw-w64/
 - cmake:   http://www.cmake.org/download/
 
-После установки выше описанных программ необходимо внести изменения в файл
-src/zlibwrapper/build.bat и запустить его на исполнение с одним из параметров:
-- clean   - очистить текущую директорию от временных файлов
-- release - сборать с удалением временных файлов (режим по умолчанию)
-
+После установки необходимо изменить значения переменных в build.bat и запустить его.
 
 Планируется:
  - модуль должен уметь изменять структуру конфигурационного файла
  - выполнять локализацию
+
+# EN: Changing the configuration file of 1C
+
+Before building needed:
+
+Download the source files of libraries:
+- zlib: http://www.zlib.net/ - unzip in the directory src/zlibwrapper/zlib/
+
+To install:
+- swig:    http://www.swig.org/survey.html
+- mingw64: http://sourceforge.net/projects/mingw-w64/
+- cmake:   http://www.cmake.org/download/
+
+After installation need change variables in the build.bat and run it.
+
+It is planned:
+  - The module must be able to change the structure of the configuration file
+  - To carry out the localization

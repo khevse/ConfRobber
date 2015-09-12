@@ -1,6 +1,6 @@
-Setlocal EnableDelayedExpansion
 @echo off
 rem -*- coding:OEM -*-
+Setlocal EnableDelayedExpansion
 
 cd ..
 cd ..
@@ -12,14 +12,15 @@ SET "CURRENT_DIR=%CD%"
 SET "BUILD_DIR_NAME=build"
 SET "BUILD_DIR=%CURRENT_DIR%\build"
 
-rem 32 или 64
-SET "SYS_TYPE=32"
+rem 32 or 64
+SET "SYS_TYPE=64"
 
-SET "MINGW_DIR=C:/C++/MinGW/mingw64"
-SET "PATH=%PATH%;%GOBIN%;%MINGW_DIR%"
+if "%MINGW_DIR%" == "" (
+    SET "MINGW_DIR=C:/C++/MinGW/mingw64"
+    SET "PATH=%PATH%;%GOBIN%;%MINGW_DIR%"
+)
 
-
-rem Удаление не нужных файлов
+rem Remove old files
 for %%i in (bin, %BUILD_DIR_NAME%, include, lib, share) do (
     rmdir /s /q "%CURRENT_DIR%\%%i"
 )
@@ -35,8 +36,19 @@ if "%1" == "clean" (
  
 SWIG -go -intgosize %SYS_TYPE%  -c++ -cgo zlibwrapper.i
 
+for /F "tokens=*" %%f in ('go env') DO (
+    SET "_source=%%f"
+    SET "_result=!_source:set =!"
+    rem echo !_result!
+    SET "!_result!"
+)
+
+if "%PATH_TO_PROJECT_LIBS%" == "" (
+    SET "PATH_TO_PROJECT_LIBS=%GOPATH%\pkg\%GOOS%_%GOARCH%"
+)
 rem echo Add to file zlibwrapper.go new string
-call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo LDFLAGS: -L. -lzlibstatic -lzlibwrapper"
+call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows LDFLAGS: -L"%PATH_TO_PROJECT_LIBS%" -lzlibwrapper -lzlibstatic"
+call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows CFLAGS: -fno-stack-check -fno-stack-protector -mno-stack-arg-probe"
 
 mkdir %BUILD_DIR_NAME%
 cd %BUILD_DIR_NAME%
@@ -57,7 +69,7 @@ if not "%1" == "release" (
     )
 )
 
-rem Удаление не нужных файлов
+rem Remove temp files
 for %%i in (bin, %BUILD_DIR_NAME%, include, lib, share) do (
     rmdir /s /q "%CURRENT_DIR%\%%i"
 )

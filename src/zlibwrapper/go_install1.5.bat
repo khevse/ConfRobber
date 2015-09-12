@@ -11,17 +11,13 @@ for /F "tokens=*" %%f in ('go env') DO (
 
 go env
 
-go install
-if not "%ERRORLEVEL%" == "0" (
-    echo exit code "%ERRORLEVEL%"
-    exit
-)
-
-echo "Installing go shared lib..."
+echo "Installing libs..."
 
 SET "PATH_TO_MINGW_LIBS=%MinGW%\x86_64-w64-mingw32\lib"
 SET "PATH_TO_GOLANG_LIBS=%GOROOT%\pkg\%GOOS%_%GOARCH%"
-SET "PATH_TO_PROJECT_LIBS=%GOPATH%\pkg\%GOOS%_%GOARCH%"
+if "%PATH_TO_PROJECT_LIBS%" == "" (
+    SET "PATH_TO_PROJECT_LIBS=%GOPATH%\pkg\%GOOS%_%GOARCH%"
+)
 
 for %%i in (libzlibstatic.a, libzlibwrapper.a) do (
     
@@ -33,4 +29,10 @@ for %%i in (libzlibstatic.a, libzlibwrapper.a) do (
 
     echo copy_file ".\%%i" to "%PATH_TO_PROJECT_LIBS%\%%i"
     copy ".\%%i" "%PATH_TO_PROJECT_LIBS%\%%i"
+)
+
+go install
+if not "%ERRORLEVEL%" == "0" (
+    echo exit code "%ERRORLEVEL%"
+    exit
 )

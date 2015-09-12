@@ -11,12 +11,13 @@
 package zlibwrapper
 
 /*
-#cgo LDFLAGS: -L. -lzlibstatic -lzlibwrapper
+#cgo windows LDFLAGS: -L"E:\MyWork\golang\ConfRobber\pkg\windows_amd64" -lzlibwrapper -lzlibstatic
+#cgo windows CFLAGS: -fno-stack-check -fno-stack-protector -mno-stack-arg-probe
 #define intgo swig_intgo
 typedef void *swig_voidp;
 #include <stdint.h>
-typedef int intgo;
-typedef unsigned int uintgo;
+typedef long long intgo;
+typedef unsigned long long uintgo;
 typedef struct { char *p; intgo n; } _gostring_;
 typedef struct { void* array; intgo len; intgo cap; } _goslice_;
 typedef long long swig_type_1;
