@@ -8,39 +8,39 @@ set(PROJECT_SOURCE_DIR ${${PROJECT}_SOURCE_DIR})
 set(${PROJECT}_BINARY_DIR "${PROJECT_SOURCE_DIR}")
 set(CMAKE_INSTALL_PREFIX  "${PROJECT_SOURCE_DIR}")
 
-# Каталог в который будут компилироваться исполняемые файлы проекта
+# РљР°С‚Р°Р»РѕРі РІ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґСѓС‚ РєРѕРјРїРёР»РёСЂРѕРІР°С‚СЊСЃСЏ РёСЃРїРѕР»РЅСЏРµРјС‹Рµ С„Р°Р№Р»С‹ РїСЂРѕРµРєС‚Р°
 set (EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}")
-# Каталог в который будут компилироваться библиотеки проекта
+# РљР°С‚Р°Р»РѕРі РІ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґСѓС‚ РєРѕРјРїРёР»РёСЂРѕРІР°С‚СЊСЃСЏ Р±РёР±Р»РёРѕС‚РµРєРё РїСЂРѕРµРєС‚Р°
 set (LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}")
 
 set (CMAKE_VERBOSE_MAKEFILE ON)
 set(SYSTEM WIN$ENV{SYS_TYPE})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -fmessage-length=0 -D${SYSTEM} -fPIC -m64 -pthread -c -static -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -fmessage-length=0 -D${SYSTEM} -fPIC -m64 -pthread -mwindows -static -static-libgcc -static-libstdc++")
 set(CGO_ENABLED "0")
 
 set(MINGW_DIR "$ENV{MINGW_DIR}")
 set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${MINGW_DIR}/lib;${CMAKE_LIBRARY_PATH};${LIBRARY_OUTPUT_PATH}")
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${CMAKE_INCLUDE_PATH};${MINGW_DIR}/include")
 
-# Расположение заголовочных файлов
+# Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹С… С„Р°Р№Р»РѕРІ
 INCLUDE_DIRECTORIES(
     .
     zlib
     )
 
-# Добавление подпроекта, указывается имя дирректории
+# Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРґРїСЂРѕРµРєС‚Р°, СѓРєР°Р·С‹РІР°РµС‚СЃСЏ РёРјСЏ РґРёСЂСЂРµРєС‚РѕСЂРёРё
 add_subdirectory(zlib)
 
-# Библиотеки, с которыми будем осуществлять линковку
-set(LIBS zlibstatic)
+# Р‘РёР±Р»РёРѕС‚РµРєРё, СЃ РєРѕС‚РѕСЂС‹РјРё Р±СѓРґРµРј РѕСЃСѓС‰РµСЃС‚РІР»СЏС‚СЊ Р»РёРЅРєРѕРІРєСѓ
+set(LIBS zlib)
 
 set(SOURCE_FILES 
 	zlibwrapper_wrap.cxx
     zlibwrapper.cpp)
 
-# Создание основной библиотеки файла
+# РЎРѕР·РґР°РЅРёРµ РѕСЃРЅРѕРІРЅРѕР№ Р±РёР±Р»РёРѕС‚РµРєРё С„Р°Р№Р»Р°
 add_library(${PROJECT} STATIC ${SOURCE_FILES} zlibwrapper.hpp)
 
-# Линковка программы с библиотеками
+# Р›РёРЅРєРѕРІРєР° РїСЂРѕРіСЂР°РјРјС‹ СЃ Р±РёР±Р»РёРѕС‚РµРєР°РјРё
 target_link_libraries(${PROJECT} ${LIBS})

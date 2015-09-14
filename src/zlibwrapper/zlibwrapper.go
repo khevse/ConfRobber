@@ -11,8 +11,7 @@
 package zlibwrapper
 
 /*
-#cgo windows LDFLAGS: -L"E:\MyWork\golang\ConfRobber\pkg\windows_amd64" -lzlibwrapper -lzlibstatic
-#cgo windows CFLAGS: -fno-stack-check -fno-stack-protector -mno-stack-arg-probe
+#cgo windows LDFLAGS: -L. -L"E:\MyWork\golang\ConfRobber\pkg\_" -mwindows -lzlibwrapper -lzlib -lgcc -lstdc++
 #define intgo swig_intgo
 typedef void *swig_voidp;
 #include <stdint.h>

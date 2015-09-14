@@ -46,9 +46,11 @@ for /F "tokens=*" %%f in ('go env') DO (
 if "%PATH_TO_PROJECT_LIBS%" == "" (
     SET "PATH_TO_PROJECT_LIBS=%GOPATH%\pkg\%GOOS%_%GOARCH%"
 )
+
+SET "PATH=%PATH%;%PATH_TO_PROJECT_LIBS%"
 rem echo Add to file zlibwrapper.go new string
-call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows LDFLAGS: -L"%PATH_TO_PROJECT_LIBS%" -lzlibwrapper -lzlibstatic"
-call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows CFLAGS: -fno-stack-check -fno-stack-protector -mno-stack-arg-probe"
+call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows LDFLAGS: -L. -L"%PATH_TO_PROJECT_LIBS%" -mwindows -lzlibwrapper -lzlib -lgcc -lstdc++"
+rem call replace_text "zlibwrapper.go" "#define intgo swig_intgo" "#cgo windows CFLAGS: -fno-stack-check -fno-stack-protector -mno-stack-arg-probe"
 
 mkdir %BUILD_DIR_NAME%
 cd %BUILD_DIR_NAME%
@@ -74,7 +76,7 @@ for %%i in (bin, %BUILD_DIR_NAME%, include, lib, share) do (
     rmdir /s /q "%CURRENT_DIR%\%%i"
 )
 
-for %%i in (*.exe, libzlib.dll, libzlib.dll.a) do (
+for %%i in (*.exe, libzlib.dll.a) do (
     del /f /s /q "%CURRENT_DIR%\%%i"
 )
 

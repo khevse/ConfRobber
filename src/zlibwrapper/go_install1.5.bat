@@ -19,7 +19,7 @@ if "%PATH_TO_PROJECT_LIBS%" == "" (
     SET "PATH_TO_PROJECT_LIBS=%GOPATH%\pkg\%GOOS%_%GOARCH%"
 )
 
-for %%i in (libzlibstatic.a, libzlibwrapper.a) do (
+for %%i in (libzlib.dll, libzlibstatic.a, libzlibwrapper.a) do (
     
     echo copy_file ".\%%i" to "%PATH_TO_MINGW_LIBS%\%%i"
     copy ".\%%i" "%PATH_TO_MINGW_LIBS%\%%i"
