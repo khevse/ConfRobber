@@ -1,5 +1,5 @@
 # ConfRobber
-# RU: Изменение файла конфигурации 1С.
+## RU: Изменение файла конфигурации 1С.
 
 Перед началом сборки необходимо:
 
@@ -13,11 +13,9 @@
 
 После установки необходимо изменить значения переменных в build.bat и запустить его.
 
-Планируется:
- - модуль должен уметь изменять структуру конфигурационного файла
- - выполнять локализацию
+Внесение изменений не планируется, т.к. проект полностью переписан на **rust**: https://github.com/khevse/conf_robber
 
-# EN: Changing the configuration file of 1C
+## EN: Changing the configuration file of 1C
 
 Before building needed:
 
@@ -31,6 +29,4 @@ To install:
 
 After installation need change variables in the build.bat and run it.
 
-It is planned:
-  - The module must be able to change the structure of the configuration file
-  - To carry out the localization
+Changes is not planned, because the project has been completely rewritten to **rust**: https://github.com/khevse/conf_robber
