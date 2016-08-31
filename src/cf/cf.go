@@ -356,7 +356,6 @@ func addTableOfContent(fileData *[]byte, addresses []addresInTOC) {
 	emptyData := []byte{}
 	if valuableTOCSize < fullTOCSize {
 		emptyData = make([]byte, fullTOCSize-valuableTOCSize)
-
 	}
 
 	data = append(data, emptyData...)

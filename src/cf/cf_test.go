@@ -10,6 +10,7 @@ import (
 	"path"
 	"testing"
 	"utils"
+	"zlibwrapper"
 )
 
 const countBloks = 2
@@ -38,9 +39,8 @@ func getTestData_AttrsCF() []byte {
 }
 
 func getTestData_BlockCF() []byte {
-	var data []byte
-	utils.ZlibCompress([]byte(getTestData_SimpleBlockData()), &data)
 
+	data, _ := zlibwrapper.Compress([]byte(getTestData_SimpleBlockData()))
 	return data
 }
 

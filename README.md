@@ -1,32 +1,18 @@
 # ConfRobber
-## RU: Изменение файла конфигурации 1С.
+## RU: Разборка/сборка конфигурационного файла 1С.
 
-Перед началом сборки необходимо:
-
-Скачать исходные файлы библиотек:    
-- zlib: http://www.zlib.net/ - поместить в каталог src/zlibwrapper/zlib/
-
-Установить:
-- swig:    http://www.swig.org/survey.html
-- mingw64: http://sourceforge.net/projects/mingw-w64/
-- cmake:   http://www.cmake.org/download/
-
-После установки необходимо изменить значения переменных в build.bat и запустить его.
+### Иструкция по сборке (Windows)
+- [скачать исходные файлы библиотеки zlib](http://www.zlib.net/) и поместить в каталог _**src/zlibwrapper/cpp_src/zlib/**_
+- [установить mingw64](http://sourceforge.net/projects/mingw-w64/) (architecture: x86_64, threads: win32, exception: seh)
+- [установить cmake](http://www.cmake.org/download/)
 
 Внесение изменений не планируется, т.к. проект полностью переписан на **rust**: https://github.com/khevse/conf_robber
 
-## EN: Changing the configuration file of 1C
+### EN: Disassembly/assembly of the configuration file 1C
 
-Before building needed:
-
-Download the source files of libraries:
-- zlib: http://www.zlib.net/ - unzip in the directory src/zlibwrapper/zlib/
-
-To install:
-- swig:    http://www.swig.org/survey.html
-- mingw64: http://sourceforge.net/projects/mingw-w64/
-- cmake:   http://www.cmake.org/download/
-
-After installation need change variables in the build.bat and run it.
+## Assembly instruction (Windows)
+- [Download the source files of zlib](http://www.zlib.net/) and unpack to the _**src/zlibwrapper/cpp_src/zlib/**_
+- [install mingw64](http://sourceforge.net/projects/mingw-w64/) (architecture: x86_64, threads: win32, exception: seh)
+- [install cmake](http://www.cmake.org/download/)
 
 Changes is not planned, because the project has been completely rewritten to **rust**: https://github.com/khevse/conf_robber

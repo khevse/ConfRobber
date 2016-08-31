@@ -9,6 +9,7 @@ import (
 	"path"
 	"time"
 	"utils"
+	"zlibwrapper"
 )
 
 const (
@@ -44,11 +45,12 @@ func (b *block) Init(sourceData []byte, attrsHeader header, dataHeader header, c
 	getAttrsAndData(sourceData, attrsHeader, dataHeader, &b.attrs, &blockData)
 	sourceLen := len(blockData)
 	if sourceLen > 0 {
-		utils.ZlibUncompress(blockData, &blockData)
-	}
+		var err error
 
-	if sourceLen > 0 && len(blockData) == 0 {
-		panic("Ошибка распаковки блока: " + b.attrs.name)
+		blockData, err = zlibwrapper.Decompress(blockData)
+		if err != nil {
+			panic("Ошибка распаковки блока: " + b.attrs.name)
+		}
 	}
 
 	headersTOC, err := findTOC(blockData)
@@ -196,12 +198,12 @@ func (b block) GetDataForConfigFile() (attrsForCf []byte, dataForCf []byte) {
 	}
 
 	if len(dataForCf) > 0 {
-		utils.ZlibCompress(dataForCf, &dataForCf)
-		if len(dataForCf) == 0 {
+		compressData, err := zlibwrapper.Compress(dataForCf)
+		if err != nil {
 			panic("Ошибка сжатия данных блока: " + b.attrs.name)
 		}
 
-		prepareDataForConfigFile(&dataForCf)
+		prepareDataForConfigFile(&compressData)
 	}
 
 	attrsForCf = b.attrs.getData()
