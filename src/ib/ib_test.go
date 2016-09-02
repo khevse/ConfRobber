@@ -30,7 +30,7 @@ func TestMain(m *testing.M) {
 
 func TestInformationBase(t *testing.T) {
 
-	pathTo1C := path.Join("C:", "Program Files (x86)", "1cv8", "8.3.5.1517", "bin", "1cv8.exe")
+	pathTo1C := path.Join("C:", "Program Files (x86)", "1cv8", "8.3.6.2421", "bin", "1cv8.exe")
 	pathToIb := path.Join(pathToTarget, "ib")
 	userName := ""
 	userPwd := ""

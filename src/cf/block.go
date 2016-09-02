@@ -198,12 +198,14 @@ func (b block) GetDataForConfigFile() (attrsForCf []byte, dataForCf []byte) {
 	}
 
 	if len(dataForCf) > 0 {
-		compressData, err := zlibwrapper.Compress(dataForCf)
-		if err != nil {
+		var err error
+		var newData []byte
+		if newData, err = zlibwrapper.Compress(dataForCf); err != nil {
 			panic("Ошибка сжатия данных блока: " + b.attrs.name)
 		}
 
-		prepareDataForConfigFile(&compressData)
+		prepareDataForConfigFile(&newData)
+		dataForCf = newData
 	}
 
 	attrsForCf = b.attrs.getData()

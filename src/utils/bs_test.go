@@ -128,17 +128,3 @@ func TestAddToSlice(t *testing.T) {
 		t.Error("AddToSlice positions[0] ", 2, "!=", positions[1])
 	}
 }
-
-func TestZip(t *testing.T) {
-
-	sourceData := []byte("hello word")
-	var zipData []byte
-	var unzipData []byte
-
-	ZlibCompress(sourceData, &zipData)
-	ZlibUncompress(zipData, &unzipData)
-
-	if !bytes.Equal(sourceData, unzipData) {
-		t.Error("error zip/unzip")
-	}
-}
